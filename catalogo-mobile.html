@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo - Valmed</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-color: #090d16;
+      --headBg-color: rgba(17, 24, 39, 0.35);
+      --text-menu: #ababab;
+      --text-muted: #94a3b8;
+      --card-bg: rgba(17, 24, 39, 0.9);
+      --card-border: #1e293b;
+      --accent-color: #f03e09;
+      --canvas-overlay: rgba(9, 13, 22, 0.4);
+    }
+
+    body {
+      font-family: "Raleway", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-style: normal;
+      background-color: var(--bg-color);
+      color: #f9fafb;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    body.light-mode {
+      --bg-color: #ababab;
+      --headBg-color: rgba(171, 171, 171, 0.35);
+      --text-menu: #090d16;
+      --text-muted: #475569;
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --card-border: #e2e8f0;
+      --canvas-overlay: rgba(248, 250, 252, 0.4);
+    }
+
+    /* BOTÓN MENÚ */
+    .mobile-menu-btn {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      background: linear-gradient(180deg, #f03e09, #ebc309);
+      color: #ffffff;
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(235, 195, 9, 0.3);
+    }
+
+    .mobile-drawer {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 280px;
+      height: 100vh;
+      background-color: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border-right: 1px solid var(--card-border);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .mobile-drawer.open {
+      left: 0;
+    }
+
+    .drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .drawer-header h3 {
+      font-size: 1.1rem;
+      color: var(--text-menu);
+    }
+
+    .drawer-close-btn {
+      background: none;
+      border: none;
+      color: var(--text-menu);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .drawer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .drawer-link {
+      color: var(--text-menu);
+      text-decoration: none;
+      font-size: 1.05rem;
+      font-weight: 500;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      transition: background 0.2s ease, color 0.2s ease;
+      display: block;
+    }
+
+    .drawer-link:hover {
+      background: rgba(240, 62, 9, 0.15);
+      color: #f03e09;
+    }
+
+    .drawer-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .drawer-backdrop.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* FONDOS Y CABECERA ANIMADA */
+    .hero-header-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 380px;
+      z-index: 0;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%);
+    }
+
+    #hero-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* CONTENIDO SOBREPUESTO */
+    .mobile-container {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+      padding-top: 4.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .catalog-title-card {
+      background-color: var(--card-bg);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .catalog-title-card h1 {
+      color: #f03e09;
+      font-size: 1.5rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .catalog-title-card p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* GRID DEL CATÁLOGO: 2 COLUMNAS POR DEFECTO (RETRATO) */
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.85rem;
+    }
+
+    /* TARJETA MINIMALISTA DE CADA SECCIÓN (SIN IMAGEN) */
+    .catalog-card {
+      position: relative;
+      background-color: var(--card-bg);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 1.1rem 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      text-align: left;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      overflow: hidden;
+    }
+
+    /* Detalle sutil superior al interactuar */
+    .catalog-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: var(--accent-color);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .catalog-card:hover, .catalog-card:active {
+      border-color: rgba(240, 62, 9, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+    }
+
+    .catalog-card:hover::before, .catalog-card:active::before {
+      opacity: 1;
+    }
+
+    .catalog-card-pixel {
+      width: 6px;
+      height: 6px;
+      background-color: var(--accent-color);
+      border-radius: 50%;
+      margin-bottom: 0.5rem;
+      box-shadow: 0 0 6px rgba(240, 62, 9, 0.4);
+      display: block;
+    }
+
+    .catalog-card h4 {
+      color: #f9fafb;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      line-height: 1.3;
+    }
+
+    body.light-mode .catalog-card h4 {
+      color: #090d16;
+    }
+
+    .catalog-card p {
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      line-height: 1.4;
+    }
+
+    /* CAMBIO A 4 COLUMNAS EN APAISADO (LANDSCAPE) */
+    @media (orientation: landscape) {
+      .catalog-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+      }
+
+      .hero-header-bg {
+        height: 280px;
+      }
+    }
+
+    /* BOTÓN DE TEMA */
+    .theme-toggle-btn {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-menu);
+      padding: 0;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle-btn img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Botón de menú flotante -->
+  <button class="mobile-menu-btn">☰</button>
+  <div id="drawer-backdrop" class="drawer-backdrop"></div>
+  <nav id="mobile-drawer" class="mobile-drawer">
+    <div class="drawer-header">
+      <h3>Menú</h3>
+      <button id="drawer-close" class="drawer-close-btn" aria-label="Cerrar menú">✕</button>
+    </div>
+    <div class="drawer-links">
+      <a href="index.html" class="drawer-link">Inicio</a>
+      <a href="catalogo-mobile.html" class="drawer-link">Catálogo</a>
+    </div>
+  </nav>
+
+  <!-- Botón flotante de tema -->
+  <button id="theme-toggle" class="theme-toggle-btn" aria-label="Cambiar tema">
+    <img id="theme-icon" src="icons/Icon12.svg" alt="Icono Tema">
+  </button>
+
+  <!-- FONDO ANIMADO DE FONDO COMPLETO -->
+  <div class="hero-header-bg">
+    <canvas id="hero-canvas"></canvas>
+  </div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="mobile-container">
+    
+    <div class="catalog-title-card">
+      <h1>Nuestro Catálogo</h1>
+      <p>Explora nuestras gamas de equipamiento sanitario y material fungible.</p>
+    </div>
+
+    <!-- REJILLA DE CATÁLOGO (2 cols vertical / 4 cols apaisado) -->
+    <div class="catalog-grid">
+      
+      <!-- Sección 1 -->
+      <article class="catalog-card">
+        <span class="catalog-card-pixel"></span>
+        <h4>Material Fungible</h4>
+        <p>Guantes, gasas, vendajes y apósitos de uso clínico habitual.</p>
+      </article>
+
+      <!-- Sección 2 -->
+      <article class="catalog-card">
+        <span class="catalog-card-pixel"></span>
+        <h4>Diagnóstico</h4>
+        <p>Termómetros, tensiómetros y aparatos de diagnóstico preciso.</p>
+      </article>
+
+      <!-- Sección 3 -->
+      <article class="catalog-card">
+        <span class="catalog-card-pixel"></span>
+        <h4>Equipamiento</h4>
+        <p>Instrumental y dotación técnica para clínicas y centros de salud.</p>
+      </article>
+
+      <!-- Sección 4 -->
+      <article class="catalog-card">
+        <span class="catalog-card-pixel"></span>
+        <h4>Fisioterapia</h4>
+        <p>Cremas, geles, crosstape, vendaje neuromuscular, acupuntura, electroterapia, magnetoterapia.</p>
+      </article>
+
+      <!-- Sección 5 -->
+      <article class="catalog-card">
+        <span class="catalog-card-pixel"></span>
+        <h4>Veterinaria</h4>
+        <p>Vendas, collares isabelinos, suministro clínico integral adaptado a la práctica veterinaria.</p>
+      </article>
+
+      <!-- Sección 6 -->
+      <article class="catalog-card">
+        <span class="catalog-card-pixel"></span>
+        <h4>Esterilización</h4>
+        <p>limpieza, desinfección y control de asepsia.</p>
+      </article>
+
+      <!-- Sección 7 -->
+      <article class="catalog-card">
+        <span class="catalog-card-pixel"></span>
+        <h4>Cobertura quirúrgica</h4>
+        <p>Elementos de protección estéril de un solo uso, pijamas quirúrgicos</p>
+      </article>
+
+      <!-- Sección 8 -->
+      <article class="catalog-card">
+        <span class="catalog-card-pixel"></span>
+        <h4>Estética</h4>
+        <p>Cosmética profesional, ceras, cremas, aceites y equipamiento especializado.</p>
+      </article>
+
+      <!-- Sección 9 -->
+      <article class="catalog-card">
+        <span class="catalog-card-pixel"></span>
+        <h4>Mobiliario e iluminación</h4>
+        <p>Dotación ergonómica, mesas de instrumental y lámparas médicas de exploración.</p>
+      </article>
+
+      <!-- Sección 10 -->
+      <article class="catalog-card">
+        <span class="catalog-card-pixel"></span>
+        <h4>Órtesis</h4>
+        <p>Soportes anatómicos y dispositivos de estabilización ortopédica.</p>
+      </article>
+
+      <!-- Sección 11 -->
+      <article class="catalog-card">
+        <span class="catalog-card-pixel"></span>
+        <h4>Movilidad y marcha</h4>
+        <p>Elementos de apoyo y autonomía para la recuperación funcional.</p>
+      </article>
+    </div>
+  </div>
+  <script>
+    const canvas = document.getElementById('hero-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let width, height;
+
+    function resize() {
+      width = canvas.width = canvas.parentElement.clientWidth;
+      height = canvas.height = canvas.parentElement.clientHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    let step = 0;
+
+    function drawWave(yOffset, speedMultiplier, color, amplitude, ecgFrequency) {
+      ctx.beginPath();
+      ctx.lineWidth = 1.2;
+      ctx.strokeStyle = color;
+
+      for (let x = 0; x < width; x++) {
+        let wave = Math.sin((x * 0.015) + (step * speedMultiplier)) * amplitude;
+
+        let ecgPos = (x + step * 40 * speedMultiplier) % (width * ecgFrequency);
+        let spike = 0;
+
+        if (ecgPos > 80 && ecgPos < 140) {
+          let progress = (ecgPos - 80) / 60;
+          if (progress < 0.2) spike = -4;
+          else if (progress < 0.4) spike = 8;
+          else if (progress < 0.5) spike = -amplitude * 2.0;
+          else if (progress < 0.6) spike = amplitude * 1.1;
+          else if (progress < 0.9) spike = -6;
+        }
+
+        let y = yOffset + wave + spike;
+
+        if (x === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+      ctx.stroke();
+    }
+
+    function animate() {
+      ctx.fillStyle = 'rgba(9, 13, 22, 0.4)';
+      ctx.fillRect(0, 0, width, height);
+
+      step += 0.02;
+
+      drawWave(height * 0.10, 0.5, 'rgba(148, 163, 184, 0.20)', 10, 1.4);
+      drawWave(height * 0.20, 0.8, 'rgba(148, 163, 184, 0.20)', 14, 1.1);
+      drawWave(height * 0.30, 1.2, 'rgba(148, 163, 184, 0.20)', 18, 0.9);
+      drawWave(height * 0.40, 0.7, 'rgba(148, 163, 184, 0.20)', 12, 1.3);
+      drawWave(height * 0.50, 1.0, 'rgba(148, 163, 184, 0.20)', 15, 1.0);
+      drawWave(height * 0.60, 0.4, 'rgba(148, 163, 184, 0.20)', 8, 1.6);
+      drawWave(height * 0.70, 0.8, 'rgba(148, 163, 184, 0.20)', 14, 1.1);
+      drawWave(height * 0.80, 0.5, 'rgba(148, 163, 184, 0.20)', 10, 1.4);
+      drawWave(height * 0.90, 0.7, 'rgba(148, 163, 184, 0.20)', 12, 1.3);
+      drawWave(height * 1.00, 0.4, 'rgba(148, 163, 184, 0.20)', 8, 1.6);
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // GESTIÓN DE TEMA CON ICONOS SVG
+    const themeBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const currentTheme = localStorage.getItem('theme');
+
+    if (currentTheme === 'light') {
+      document.body.classList.add('light-mode');
+      themeIcon.src = 'icons/Icon13.svg';
+    } else {
+      themeIcon.src = 'icons/Icon12.svg';
+    }
+
+    themeBtn.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+      
+      let theme = 'dark';
+      if (document.body.classList.contains('light-mode')) {
+        theme = 'light';
+        themeIcon.src = 'icons/Icon13.svg';
+      } else {
+        themeIcon.src = 'icons/Icon12.svg';
+      }
+      
+      localStorage.setItem('theme', theme);
+    });
+
+    // MENÚ DESPLEGABLE (DRAWER)
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    const drawer = document.getElementById('mobile-drawer');
+    const backdrop = document.getElementById('drawer-backdrop');
+    const closeBtn = document.getElementById('drawer-close');
+
+    function toggleDrawer() {
+      drawer.classList.toggle('open');
+      backdrop.classList.toggle('open');
+    }
+
+    menuBtn.addEventListener('click', toggleDrawer);
+    closeBtn.addEventListener('click', toggleDrawer);
+    backdrop.addEventListener('click', toggleDrawer);
+  </script>
+</body>
+</html>
