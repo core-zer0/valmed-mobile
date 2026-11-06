@@ -15,11 +15,11 @@
     }
 
     :root {
-      --bg-color: #090d16;
-      --headBg-color: rgba(17, 24, 39, 0.35);
+      --bg-color: #09211c;
+      --headBg-color: rgba(10, 84, 61, 0.2);
       --text-menu:#ababab;
       --text-muted: #c7c5c1;
-      --card-bg: rgba(17, 24, 39, 0.9);
+      --card-bg: #002e25;
       --card-border: #1e293b;
       --cover-bg: #1e293b;
       --canvas-overlay: rgba(9, 13, 22, 0.4);
@@ -396,7 +396,7 @@
       <div class="hero-text-box">
         <img src="branding/Logo1GrisNaranja.svg" alt="Logotipo" class="brand-logo logo-dark">
         <img src="branding/Logo1NegroNaranja.svg" alt="Logotipo" class="brand-logo logo-light">
-        <h1>Suministro sanitario</h1>
+        <h1>Suministro médico</h1>
       </div>
     </div>
 
@@ -498,22 +498,22 @@
     }
 
     function animate() {
-      ctx.fillStyle = 'rgba(9, 13, 22, 0.4)';
+      ctx.fillStyle = '#226b59';
       ctx.fillRect(0, 0, width, height);
 
       step += 0.02;
 
       // Distribución de hilos en escala de grises
-      drawWave(height * 0.10, 0.5, 'rgba(148, 163, 184, 0.20)', 10, 1.4);
-      drawWave(height * 0.20, 0.8, 'rgba(148, 163, 184, 0.20)', 14, 1.1);
-      drawWave(height * 0.30, 1.2, 'rgba(148, 163, 184, 0.20)', 18, 0.9);
-      drawWave(height * 0.40, 0.7, 'rgba(148, 163, 184, 0.20)', 12, 1.3);
-      drawWave(height * 0.50, 1.0, 'rgba(148, 163, 184, 0.20)', 15, 1.0);
-      drawWave(height * 0.60, 0.4, 'rgba(148, 163, 184, 0.20)', 8, 1.6);
-      drawWave(height * 0.70, 0.8, 'rgba(148, 163, 184, 0.20)', 14, 1.1);
-      drawWave(height * 0.80, 0.5, 'rgba(148, 163, 184, 0.20)', 10, 1.4);
-      drawWave(height * 0.90, 0.7, 'rgba(148, 163, 184, 0.20)', 12, 1.3);
-      drawWave(height * 1.00, 0.4, 'rgba(148, 163, 184, 0.20)', 8, 1.6);
+      drawWave(height * 0.10, 0.5, 'rgba(194, 194, 194, 0.30)', 10, 1.4);
+      drawWave(height * 0.20, 0.8, 'rgba(194, 194, 194, 0.30)', 14, 1.1);
+      drawWave(height * 0.30, 1.2, 'rgba(194, 194, 194, 0.30)', 18, 0.9);
+      drawWave(height * 0.40, 0.7, 'rgba(194, 194, 194, 0.30)', 12, 1.3);
+      drawWave(height * 0.50, 1.0, 'rgba(194, 194, 194, 0.30)', 15, 1.0);
+      drawWave(height * 0.60, 0.4, 'rgba(194, 194, 194, 0.30)', 8, 1.6);
+      drawWave(height * 0.70, 0.8, 'rgba(194, 194, 194, 0.30)', 14, 1.1);
+      drawWave(height * 0.80, 0.5, 'rgba(194, 194, 194, 0.30)', 10, 1.4);
+      drawWave(height * 0.90, 0.7, 'rgba(194, 194, 194, 0.30)', 12, 1.3);
+      drawWave(height * 1.00, 0.4, 'rgba(194, 194, 194, 0.30)', 8, 1.6);
 
       requestAnimationFrame(animate);
     }
