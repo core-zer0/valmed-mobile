@@ -15,21 +15,22 @@
     }
 
     :root {
-      --bg-color: #09211c;
-      --headBg-color: rgba(10, 84, 61, 0.2);
-      --text-menu:#ababab;
-      --text-muted: #c7c5c1;
-      --card-bg: #002e25;
+      --bg-color: #166153;
+      --headBg-color: rgba(130, 130, 130, 0.2);
+      --text-menu: #ffffff;
+      --text-muted: #ffffff;
+      --card-bg: #363636;
       --card-border: #1e293b;
-      --cover-bg: #1e293b;
+      --cover-bg: #297d63;
+      --stroke-color: #9c9c9c;
       --canvas-overlay: rgba(9, 13, 22, 0.4);
     }
 
     body {
       font-family: "Raleway", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       font-optical-sizing: auto;
-      font-weight: 400;
-      font-style: normal;
+      font-weight: 500;
+      font-style: revert;
       background-color: var(--bg-color);
       color: var(--text-muted);
       min-height: 100vh;
@@ -37,13 +38,14 @@
     }
 
     body.light-mode {
-      --bg-color: #ababab;
-      --headBg-color: rgba(171, 171, 171, 0.35);
+      --bg-color: #7c9c90;
+      --headBg-color: rgba(171, 171, 171, 0.2);
       --text-menu:#090d16;
       --text-muted: #303030;
       --card-bg: rgba(255, 255, 255, 0.9);
       --card-border: #e2e8f0;
-      --cover-bg: #ababab;
+      --cover-bg: #73c7a0;
+      --stroke-color: #8f8f8f;
       --canvas-overlay: rgba(248, 250, 252, 0.4);
     }
 
@@ -291,6 +293,8 @@
     .section-card p {
       color: var(--text-muted);
       font-size: 0.9rem;
+      font-style: revert;
+      font-weight: 500;
       line-height: 1.4;
     }
 
@@ -373,7 +377,7 @@
       <button id="drawer-close" class="drawer-close-btn" aria-label="Cerrar menú">✕</button>
     </div>
     <div class="drawer-links">
-      <a href="mobile.html" class="drawer-link">Inicio</a>
+      <a href="index.html" class="drawer-link">Inicio</a>
       <a href="catalogo-mobile.html" class="drawer-link">Catálogo</a>
     </div>
   </nav>
@@ -498,22 +502,24 @@
     }
 
     function animate() {
-      ctx.fillStyle = '#226b59';
+      const coverBgColor = getComputedStyle(document.body).getPropertyValue('--cover-bg').trim();
+      const color = getComputedStyle(document.body).getPropertyValue('--stroke-color').trim();
+      ctx.fillStyle = coverBgColor;
       ctx.fillRect(0, 0, width, height);
 
       step += 0.02;
 
       // Distribución de hilos en escala de grises
-      drawWave(height * 0.10, 0.5, 'rgba(194, 194, 194, 0.30)', 10, 1.4);
-      drawWave(height * 0.20, 0.8, 'rgba(194, 194, 194, 0.30)', 14, 1.1);
-      drawWave(height * 0.30, 1.2, 'rgba(194, 194, 194, 0.30)', 18, 0.9);
-      drawWave(height * 0.40, 0.7, 'rgba(194, 194, 194, 0.30)', 12, 1.3);
-      drawWave(height * 0.50, 1.0, 'rgba(194, 194, 194, 0.30)', 15, 1.0);
-      drawWave(height * 0.60, 0.4, 'rgba(194, 194, 194, 0.30)', 8, 1.6);
-      drawWave(height * 0.70, 0.8, 'rgba(194, 194, 194, 0.30)', 14, 1.1);
-      drawWave(height * 0.80, 0.5, 'rgba(194, 194, 194, 0.30)', 10, 1.4);
-      drawWave(height * 0.90, 0.7, 'rgba(194, 194, 194, 0.30)', 12, 1.3);
-      drawWave(height * 1.00, 0.4, 'rgba(194, 194, 194, 0.30)', 8, 1.6);
+      drawWave(height * 0.10, 0.5, color, 10, 1.4);
+      drawWave(height * 0.20, 0.8, color, 14, 1.1);
+      drawWave(height * 0.30, 1.2, color, 18, 0.9);
+      drawWave(height * 0.40, 0.7, color, 12, 1.3);
+      drawWave(height * 0.50, 1.0, color, 15, 1.0);
+      drawWave(height * 0.60, 0.4, color, 8, 1.6);
+      drawWave(height * 0.70, 0.8, color, 14, 1.1);
+      drawWave(height * 0.80, 0.5, color, 10, 1.4);
+      drawWave(height * 0.90, 0.7, color, 12, 1.3);
+      drawWave(height * 1.00, 0.4, color, 8, 1.6);
 
       requestAnimationFrame(animate);
     }
@@ -525,11 +531,12 @@
     const currentTheme = localStorage.getItem('theme');
 
     // 1. Cargar la preferencia previa si existe
-    if (currentTheme === 'light') {
+    if (currentTheme === 'dark') {
+      document.body.classList.remove('light-mode');
+      themeIcon.src = 'icons/Icon12.svg';
+    } else {
       document.body.classList.add('light-mode');
       themeIcon.src = 'icons/Icon13.svg';
-    } else {
-      themeIcon.src = 'icons/Icon12.svg';
     }
 
     // 2. Evento al hacer clic en el botón
