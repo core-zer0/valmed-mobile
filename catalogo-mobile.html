@@ -29,10 +29,10 @@
     body {
       font-family: "Raleway", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       font-optical-sizing: auto;
-      font-weight: 400;
-      font-style: normal;
+      font-weight: 550;
+      font-style: revert;
       background-color: var(--bg-color);
-      color: #f9fafb;
+      color: var(--text-muted);
       min-height: 100vh;
       position: relative;
     }
@@ -41,7 +41,7 @@
       --bg-color: #ababab;
       --headBg-color: rgba(144, 153, 146, 0.05);
       --text-menu: #090d16;
-      --text-muted: #475569;
+      --text-muted: #303030;
       --card-bg: rgba(255, 255, 255, 0.9);
       --card-border: #f2f2f2;
       --cover-bg: #73c7a0;
@@ -194,6 +194,7 @@
       color: #f03e09;
       font-size: 1.5rem;
       margin-bottom: 0.4rem;
+      text-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);;
     }
 
     .catalog-title-card p {
@@ -238,9 +239,16 @@
       transition: opacity 0.2s ease;
     }
 
-    .catalog-card:hover, 
-    .catalog-card:active, 
     .catalog-card.active {
+      grid-column: 1 / -1;
+      border-color: rgba(240, 62, 9, 0.5);
+      border-top: 3px solid #f03e09;
+      transform: translateY(-4px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+    }
+
+    .catalog-card:hover, 
+    .catalog-card:active {
       border-color: rgba(240, 62, 9, 1);
       border-top: 3px solid #f03e09;
       transform: translateY(-2px);
@@ -265,22 +273,36 @@
 
     .catalog-card h4 {
       color: #f9fafb;
-      font-size: 0.95rem;
+      font-size: 1.25rem;
       font-weight: 600;
       margin-bottom: 0.4rem;
       line-height: 1.3;
     }
 
+    .catalog-card.active h4 {
+      text-align: center;
+    }
+
+    .catalog-card h3 {
+      color: #f03e09;
+      font-size: 0.95rem;
+      margin-bottom: 0.4rem;
+      margin-top: 0.4rem;
+    }
+
+
     .catalog-card .card-desc {
       transition: opacity 0.2s ease, max-height 0.3s ease, margin 0.3s ease;
       max-height: 100px;
       opacity: 1;
+      visibility: visible;
       overflow: hidden;
     }
 
     .catalog-card.active .card-desc {
       max-height: 0;
       opacity: 0;
+      visibility: hidden;
       margin-bottom: 0;
     }
 
@@ -293,10 +315,10 @@
     }
 
     .catalog-card.active .card-dropdown {
-      max-height: 350px; /* Ajusta según el contenido máximo esperado */
+      max-height: 1800px; /* Ajusta según el contenido máximo esperado */
       opacity: 1;
       margin-top: 0.85rem;
-      border-top: 1px dashed var(--card-border);
+      border-top: 2px dashed var(--text-muted);
       padding-top: 0.75rem;
     }
     
@@ -437,13 +459,30 @@
         <!-- Lista 1 -->
         <div class="card-dropdown">
           <ul class="product-list">
-            <li>Guantes de nitrilio sin polvo (Caja 100u)</li>
-            <li>Gasas estériles texidermas 20x20</li>
-            <li>Vendajes elásticos cohesivos</li>
-            <li>Apósitos adhesivos estériles surtidos</li>
+            <li>· Guantes estériles</li>
+            <li>· Guantes latex</li>
+            <li>· Guantes nitrilo</li>
+            <li>· Guantes neopreno</li>
+            <li>· Guantes vinilo</li>
+            <li>· Guantes plástico</li>
+            <li>· Vendas de gasa</li>
+            <li>· Vendas de crepe</li>
+            <li>· Vendas de almohadilla</li>
+            <li>· Venda de escayola</li>
+            <li>· Venda elástica adhesiva</li>
+            <li>· Venda tubular de malla</li>
+            <li>· Venda tubular de soporte</li>
+            <li>· Venda tubular de compresión</li>
+            <li>· Gasas TNT</li>
+            <li>· Apósito precortado</li>
+            <li>· Apósito adhesivo</li>          
+            <li>· Apósito adhesivo transparente</li>
+            <li>· Apósito no adhesivo absorvente</li>
+            <li>· Apósito en spray</li>
+            <li>· Tiritas</li>
           </ul>
           <div class="card-image-container">
-            <img src="icons/Icon8.svg" alt="Material Fungible" class="dropdown-img">
+            <img src="icons/Icon2.svg" alt="Material Fungible" class="dropdown-img">
           </div>
         </div>
       </article>
@@ -457,10 +496,20 @@
         <!-- Lista 2 -->
         <div class="card-dropdown">
           <ul class="product-list">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
+            <li>· Termómetros</li>
+            <li>· Tensiómetros manuales</li>
+            <li>· Tensiómetros digitales</li>
+            <li>· Repuestos tensiómetros</li>
+            <li>· Fonendoscopios y kits de repuesto</li>
+            <li>· Otoscopios</li>
+            <li>· Espéculos óticos</li>
+            <li>· Brazaletes omron</li>
+            <li>· Básculas mecánicas</li>
+            <li>· Básculas digitales</li>
+            <li>· Básculas bebés</li>
+            <li>· Laringoscopios</li>
+            <li>· Depresores</li>
+            <li>· Pulsioxímetros</li>
           </ul>
           <div class="card-image-container">
             <img src="icons/Icon8.svg" alt="Material Fungible" class="dropdown-img">
@@ -477,13 +526,57 @@
         <!-- Lista 3 -->
         <div class="card-dropdown">
           <ul class="product-list">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
+            <h3>Instrumental</h3>
+            <li>· Pinzas</li>
+            <li>· Pinzas de disección · Pinzas para agrafes</li>
+            <li>· Pinzas para espinas · Pinzas variadas</li>
+            <li>· Tijeras universales corta ropa · Tijeras para preparaciones</li>
+            <li>· Tijeras variadas · Tijeras para cirugía</li>
+            <li>· Tijeras de disección · Tijeras para tenotomía</li>
+            <li>· Porta-agujas</li>
+            <li>· Suturas absorbibles · Suturas no absorbibles</li>
+            <li>· Sutura cutánea adhesiva</li>
+            <li>· Malla quirúrgica</li>
+            <li>· Estilete</li>
+            <li>· Espejos laringeos</li>
+            <li>· Instrumentos para vendaje y yeso</li>
+            <li>· Instrumentos para uñas</li>
+            <li>· Martillos</li>
+            <li>· Gubia</li>
+            <li>· Cucharillas cortantes</li>
+            <li>· Separadores</li>
+            <li>· Espéculos nasales</li>
+            <li>· Espéculos vaginales</li>
+            <li>· Dilatadores uterinos</li>
+            <li>· Histerómetro</li>
+            <li>· Abre-bocas</li>
+            <li>· Abaja-lenguas</li>
+            <li>· Jeringas</li>
+            <li>· Set de disección</li>
+            <li>· Estuches</li>
+            <li>· Contenedores</li>
+            <li>· Bisturís</li>
+            <li>· Punch de biopsia</li>
+            <li>· Curetas dermatológicas</li>
+            <li>· Rasuradoras</li>
+            <h3>Laboratorio</h3>
+            <li>· Contenedores</li>
+            <li>· Torundas</li>
+            <li>· Tiras de orina</li>
+            <li>· Análisis</li>
+            <li>· Tubos de vacío</li>
+            <h3>Ginecología</h3>
+            <li>· Espéculos estériles</li>
+            <li>· Toma de muestras citológicas</li>
+            <li>· Fundas sonda ecográfica</li>
+            <li>· Papel de registro ecógrafo</li>
+            <li>· Contracepción</li>
+            <li>· Extracción Diu</li>
+            <li>· Geles ultrasonidos</li>
+
           </ul>
           <div class="card-image-container">
-            <img src="icons/Icon8.svg" alt="Material Fungible" class="dropdown-img">
+            <img src="icons/Icon2.svg" alt="Material Fungible" class="dropdown-img">
           </div>
         </div>
       </article>
@@ -497,13 +590,34 @@
         <!-- Lista 4 -->
         <div class="card-dropdown">
           <ul class="product-list">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
+            <li>· Cremas de masaje</li>
+            <li>· Lociones de masaje</li>
+            <li>· Aceites de masaje</li>
+            <li>· Gel de frío</li>
+            <li>· Gel y crema de calor</li>
+            <li>· Crema conductora terapia</li>
+            <li>· Valsamo tigre</li>
+            <li>· Vaselina</li>
+            <li>· Vendaje neuromuscular</li>
+            <li>· Crosstape</li>
+            <li>· Accesorios para vendaje</li>
+            <li>· Agujas de punción seca</li>
+            <li>· Agujas de electroterapia</li>
+            <li>· Acupuntura</li>
+            <li>· Terapia frío calor</li>
+            <li>· Electroterapia</li>
+            <li>· Magnetoterapia</li>
+            <li>· Rehabilitación</li>
+            <li>· Presoterapia</li>
+            <li>· Electrodos</li>
+            <li>· Geles de ultrasonidos</li>
+            <li>· Ecógrafos</li>
+            <li>· Medidores de ácido lactato</li>
+            <li>· Camillas fisioterapia</li>
+            <li>· Taburetes</li>
           </ul>
           <div class="card-image-container">
-            <img src="icons/Icon8.svg" alt="Material Fungible" class="dropdown-img">
+            <img src="icons/Icon2.svg" alt="Material Fungible" class="dropdown-img">
           </div>
         </div>
       </article>
@@ -517,13 +631,15 @@
         <!-- Lista 5 -->
         <div class="card-dropdown">
           <ul class="product-list">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
+            <li>· Vendas</li>
+            <li>· Apósitos</li>
+            <li>· Sondas uretrales</li>
+            <li>· Sueros</li>
+            <li>· Tubos laboratorio</li>
+            <li>· Collares isabelinos</li>
           </ul>
           <div class="card-image-container">
-            <img src="icons/Icon8.svg" alt="Material Fungible" class="dropdown-img">
+            <img src="icons/Icon2.svg" alt="Material Fungible" class="dropdown-img">
           </div>
         </div>
       </article>
@@ -532,18 +648,22 @@
       <article class="catalog-card" onclick="toggleCard(this)">
         <span class="catalog-card-pixel"></span>
         <h4>Esterilización</h4>
-        <p class="card-desc">limpieza, desinfección y control de asepsia.</p>
+        <p class="card-desc">limpieza y desinfección.</p>
 
         <!-- Lista 6 -->
         <div class="card-dropdown">
           <ul class="product-list">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
+            <li>· Bolsas autoadhesivas</li>
+            <li>· Termoselladoras</li>
+            <li>· Incubadoras</li>
+            <li>· Baño ultrasonidos</li>
+            <li>· Autoclaves</li>
+            <li>· Rollos esterilización</li>
+            <li>· cintas adhesivas indicadoras</li>
+            <li>· Indicadores biológicos</li>
           </ul>
           <div class="card-image-container">
-            <img src="icons/Icon8.svg" alt="Material Fungible" class="dropdown-img">
+            <img src="icons/Icon2.svg" alt="Material Fungible" class="dropdown-img">
           </div>
         </div>
       </article>
@@ -557,13 +677,25 @@
         <!-- Lista 7 -->
         <div class="card-dropdown">
           <ul class="product-list">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
+            <li>· Talla estéril azul · Talla estéril azul adhesivo</li>
+            <li>· Talla no estéril azul</li>
+            <li>· Talla estéril impermeable verde</li>
+            <li>· Talla no estéril verde</li>
+            <li>· Mascarillas</li>
+            <li>· Protección ocular</li>
+            <li>· Batas no estériles</li>
+            <li>· Batas estériles</li>
+            <li>· Camisones</li>
+            <li>· Gorros</li>
+            <li>· Calzas y cubrezapatos</li>
+            <li>· Pijamas quirúrgicos</li>
+            <li>· Vestuario un solo uso</li>
+            <li>· Servilletas y baberos</li>
+            <li>· Sábanas</li>
+            <li>· Papel</li>
           </ul>
           <div class="card-image-container">
-            <img src="icons/Icon8.svg" alt="Material Fungible" class="dropdown-img">
+            <img src="icons/Icon2.svg" alt="Material Fungible" class="dropdown-img">
           </div>
         </div>
       </article>
@@ -577,13 +709,21 @@
         <!-- Lista 8 -->
         <div class="card-dropdown">
           <ul class="product-list">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
+            <li>· Geles</li>
+            <li>· Cremas</li>
+            <li>· Aceites</li>
+            <li>· Ampollas</li>
+            <li>· Terapia frío</li>
+            <li>· Lapiceros y ceras de marcaje</li>
+            <li>· Depresores</li>
+            <li>· Rasuradoras</li>
+            <li>· Mobiliario de estética</li>
+            <li>· Iluminación</li>
+            <li>· Dispensadores</li>
+            <li>· Prendas postquirurgicas</li>
           </ul>
           <div class="card-image-container">
-            <img src="icons/Icon8.svg" alt="Material Fungible" class="dropdown-img">
+            <img src="icons/Icon2.svg" alt="Material Fungible" class="dropdown-img">
           </div>
         </div>
       </article>
@@ -597,13 +737,15 @@
         <!-- Lista 9 -->
         <div class="card-dropdown">
           <ul class="product-list">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
+            <li>· Sillones</li>
+            <li>· Camillas especialidades</li>
+            <li>· Mesas de exploración</li>
+            <li>· Mobiliario clínico</li>
+            <li>· Camas</li>
+            <li>· Iluminación médica</li>
           </ul>
           <div class="card-image-container">
-            <img src="icons/Icon8.svg" alt="Material Fungible" class="dropdown-img">
+            <img src="icons/Icon2.svg" alt="Material Fungible" class="dropdown-img">
           </div>
         </div>
       </article>
@@ -617,13 +759,15 @@
         <!-- Lista 10 -->
         <div class="card-dropdown">
           <ul class="product-list">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
+            <li>· Muñequeras</li>
+            <li>· Coderas</li>
+            <li>· Hombro</li>
+            <li>· Fajas</li>
+            <li>· Rodilleras</li>
+            <li>· Tobilleras</li>
           </ul>
           <div class="card-image-container">
-            <img src="icons/Icon8.svg" alt="Material Fungible" class="dropdown-img">
+            <img src="icons/Icon2.svg" alt="Material Fungible" class="dropdown-img">
           </div>
         </div>
       </article>
@@ -637,13 +781,12 @@
         <!-- Lista 11 -->
         <div class="card-dropdown">
           <ul class="product-list">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
+            <li>· Arneses y sujeciones</li>
+            <li>· Andadores</li>
+            <li>· Sillas de ruedas</li>
           </ul>
           <div class="card-image-container">
-            <img src="icons/Icon8.svg" alt="Material Fungible" class="dropdown-img">
+            <img src="icons/Icon2.svg" alt="Material Fungible" class="dropdown-img">
           </div>
         </div>
       </article>
@@ -762,19 +905,18 @@
 
     function toggleCard(selectedCard) {
       const allCards = document.querySelectorAll('.catalog-card');
-      
-      // Si la tarjeta ya está abierta, la cerramos
       const isOpen = selectedCard.classList.contains('active');
       
-      // Cerramos todas las tarjetas del catálogo
       allCards.forEach(card => {
         card.classList.remove('active');
       });
 
-      // Si no estaba abierta, la abrimos (efecto acordeón exclusivo)
       if (!isOpen) {
         selectedCard.classList.add('active');
-      }
+        setTimeout(() => {
+            selectedCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 150);
+        }
     }
 
   </script>
