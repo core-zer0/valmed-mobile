@@ -6,7 +6,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catálogo - Valmed</title>
+  <title>Catálogo - VS Suministro médico</title>
   <style>
     * {
       box-sizing: border-box;
@@ -15,13 +15,14 @@
     }
 
     :root {
-      --bg-color: #090d16;
-      --headBg-color: rgba(17, 24, 39, 0.35);
-      --text-menu: #ababab;
-      --text-muted: #94a3b8;
-      --card-bg: rgba(17, 24, 39, 0.9);
-      --card-border: #1e293b;
-      --accent-color: #f03e09;
+      --bg-color: #166153;
+      --headBg-color: rgba(144, 153, 146, 0.05);
+      --text-menu: #ffffff;
+      --text-muted: #ffffff;
+      --card-bg: #363636;
+      --card-border: #212121;
+      --cover-bg: #297d63;
+      --stroke-color: rgba(156, 156, 156, 0.4);
       --canvas-overlay: rgba(9, 13, 22, 0.4);
     }
 
@@ -38,11 +39,13 @@
 
     body.light-mode {
       --bg-color: #ababab;
-      --headBg-color: rgba(171, 171, 171, 0.35);
+      --headBg-color: rgba(144, 153, 146, 0.05);
       --text-menu: #090d16;
       --text-muted: #475569;
       --card-bg: rgba(255, 255, 255, 0.9);
-      --card-border: #e2e8f0;
+      --card-border: #f2f2f2;
+      --cover-bg: #73c7a0;
+      --stroke-color: rgba(143, 143, 143, 0.4);
       --canvas-overlay: rgba(248, 250, 252, 0.4);
     }
 
@@ -180,9 +183,8 @@
     }
 
     .catalog-title-card {
-      background-color: var(--card-bg);
-      backdrop-filter: blur(8px);
-      border: 1px solid var(--card-border);
+      background-color: var(--headBg-color);
+      backdrop-filter: blur(2px);
       border-radius: 10px;
       padding: 1.25rem;
       text-align: center;
@@ -231,25 +233,30 @@
       left: 0;
       width: 100%;
       height: 3px;
-      background-color: var(--accent-color);
+      background-color: var(--card-bg);
       opacity: 0;
       transition: opacity 0.2s ease;
     }
 
-    .catalog-card:hover, .catalog-card:active {
-      border-color: rgba(240, 62, 9, 0.4);
+    .catalog-card:hover, 
+    .catalog-card:active, 
+    .catalog-card.active {
+      border-color: rgba(240, 62, 9, 1);
+      border-top: 3px solid #f03e09;
       transform: translateY(-2px);
       box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
     }
 
-    .catalog-card:hover::before, .catalog-card:active::before {
+    .catalog-card:hover::before, 
+    .catalog-card:active::before, 
+    .catalog-card.active::before {
       opacity: 1;
     }
 
     .catalog-card-pixel {
       width: 6px;
       height: 6px;
-      background-color: var(--accent-color);
+      background-color: #f03e09;
       border-radius: 50%;
       margin-bottom: 0.5rem;
       box-shadow: 0 0 6px rgba(240, 62, 9, 0.4);
@@ -264,17 +271,88 @@
       line-height: 1.3;
     }
 
-    body.light-mode .catalog-card h4 {
-      color: #090d16;
+    .catalog-card .card-desc {
+      transition: opacity 0.2s ease, max-height 0.3s ease, margin 0.3s ease;
+      max-height: 100px;
+      opacity: 1;
+      overflow: hidden;
     }
 
+    .catalog-card.active .card-desc {
+      max-height: 0;
+      opacity: 0;
+      margin-bottom: 0;
+    }
+
+    .card-dropdown {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease, margin-top 0.3s ease;
+      margin-top: 0;
+    }
+
+    .catalog-card.active .card-dropdown {
+      max-height: 350px; /* Ajusta según el contenido máximo esperado */
+      opacity: 1;
+      margin-top: 0.85rem;
+      border-top: 1px dashed var(--card-border);
+      padding-top: 0.75rem;
+    }
+    
     .catalog-card p {
       color: var(--text-muted);
       font-size: 0.78rem;
       line-height: 1.4;
     }
 
-    /* CAMBIO A 4 COLUMNAS EN APAISADO (LANDSCAPE) */
+    .product-list {
+      list-style-type: none;
+      padding-left: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .product-list li {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      padding: 0.2rem 0;
+      position: relative;
+    }
+
+    .product-list li::before {
+      content: "•";
+      color: #f03e09;
+      font-weight: bold;
+      display: inline-block; 
+      width: 1em;
+      margin-left: -1em;
+    }
+
+    .card-image-container {
+      width: 100%;
+      height: 90px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .dropdown-img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .catalog-card {
+      cursor: pointer;
+    }
+
+    body.light-mode .catalog-card h4 {
+      color: #090d16;
+    }
+
     @media (orientation: landscape) {
       .catalog-grid {
         grid-template-columns: repeat(4, 1fr);
@@ -286,7 +364,6 @@
       }
     }
 
-    /* BOTÓN DE TEMA */
     .theme-toggle-btn {
       position: fixed;
       top: 1rem;
@@ -352,80 +429,223 @@
     <div class="catalog-grid">
       
       <!-- Sección 1 -->
-      <article class="catalog-card">
+      <article class="catalog-card" onclick="toggleCard(this)">
         <span class="catalog-card-pixel"></span>
         <h4>Material Fungible</h4>
-        <p>Guantes, gasas, vendajes y apósitos de uso clínico habitual.</p>
+        <p class="card-desc">Guantes, gasas, vendajes y apósitos de uso clínico habitual.</p>
+        
+        <!-- Lista 1 -->
+        <div class="card-dropdown">
+          <ul class="product-list">
+            <li>Guantes de nitrilio sin polvo (Caja 100u)</li>
+            <li>Gasas estériles texidermas 20x20</li>
+            <li>Vendajes elásticos cohesivos</li>
+            <li>Apósitos adhesivos estériles surtidos</li>
+          </ul>
+          <div class="card-image-container">
+            <img src="icons/Icon8.svg" alt="Material Fungible" class="dropdown-img">
+          </div>
+        </div>
       </article>
 
       <!-- Sección 2 -->
-      <article class="catalog-card">
+      <article class="catalog-card" onclick="toggleCard(this)">
         <span class="catalog-card-pixel"></span>
         <h4>Diagnóstico</h4>
-        <p>Termómetros, tensiómetros y aparatos de diagnóstico preciso.</p>
+        <p class="card-desc">Termómetros, tensiómetros y aparatos de diagnóstico preciso.</p>
+
+        <!-- Lista 2 -->
+        <div class="card-dropdown">
+          <ul class="product-list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+          </ul>
+          <div class="card-image-container">
+            <img src="icons/Icon8.svg" alt="Material Fungible" class="dropdown-img">
+          </div>
+        </div>
       </article>
 
       <!-- Sección 3 -->
-      <article class="catalog-card">
+      <article class="catalog-card" onclick="toggleCard(this)">
         <span class="catalog-card-pixel"></span>
         <h4>Equipamiento</h4>
-        <p>Instrumental y dotación técnica para clínicas y centros de salud.</p>
+        <p class="card-desc">Instrumental y dotación técnica para clínicas y centros de salud.</p>
+
+        <!-- Lista 3 -->
+        <div class="card-dropdown">
+          <ul class="product-list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+          </ul>
+          <div class="card-image-container">
+            <img src="icons/Icon8.svg" alt="Material Fungible" class="dropdown-img">
+          </div>
+        </div>
       </article>
 
       <!-- Sección 4 -->
-      <article class="catalog-card">
+      <article class="catalog-card" onclick="toggleCard(this)">
         <span class="catalog-card-pixel"></span>
         <h4>Fisioterapia</h4>
-        <p>Cremas, geles, crosstape, vendaje neuromuscular, acupuntura, electroterapia, magnetoterapia.</p>
+        <p class="card-desc">Cremas, geles, crosstape, vendaje neuromuscular, acupuntura, electroterapia, magnetoterapia.</p>
+
+        <!-- Lista 4 -->
+        <div class="card-dropdown">
+          <ul class="product-list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+          </ul>
+          <div class="card-image-container">
+            <img src="icons/Icon8.svg" alt="Material Fungible" class="dropdown-img">
+          </div>
+        </div>
       </article>
 
       <!-- Sección 5 -->
-      <article class="catalog-card">
+      <article class="catalog-card" onclick="toggleCard(this)">
         <span class="catalog-card-pixel"></span>
         <h4>Veterinaria</h4>
-        <p>Vendas, collares isabelinos, suministro clínico integral adaptado a la práctica veterinaria.</p>
+        <p class="card-desc">Vendas, collares isabelinos, suministro clínico integral adaptado a la práctica veterinaria.</p>
+
+        <!-- Lista 5 -->
+        <div class="card-dropdown">
+          <ul class="product-list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+          </ul>
+          <div class="card-image-container">
+            <img src="icons/Icon8.svg" alt="Material Fungible" class="dropdown-img">
+          </div>
+        </div>
       </article>
 
       <!-- Sección 6 -->
-      <article class="catalog-card">
+      <article class="catalog-card" onclick="toggleCard(this)">
         <span class="catalog-card-pixel"></span>
         <h4>Esterilización</h4>
-        <p>limpieza, desinfección y control de asepsia.</p>
+        <p class="card-desc">limpieza, desinfección y control de asepsia.</p>
+
+        <!-- Lista 6 -->
+        <div class="card-dropdown">
+          <ul class="product-list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+          </ul>
+          <div class="card-image-container">
+            <img src="icons/Icon8.svg" alt="Material Fungible" class="dropdown-img">
+          </div>
+        </div>
       </article>
 
       <!-- Sección 7 -->
-      <article class="catalog-card">
+      <article class="catalog-card" onclick="toggleCard(this)">
         <span class="catalog-card-pixel"></span>
         <h4>Cobertura quirúrgica</h4>
-        <p>Elementos de protección estéril de un solo uso, pijamas quirúrgicos</p>
+        <p class="card-desc">Elementos de protección estéril de un solo uso, pijamas quirúrgicos</p>
+
+        <!-- Lista 7 -->
+        <div class="card-dropdown">
+          <ul class="product-list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+          </ul>
+          <div class="card-image-container">
+            <img src="icons/Icon8.svg" alt="Material Fungible" class="dropdown-img">
+          </div>
+        </div>
       </article>
 
       <!-- Sección 8 -->
-      <article class="catalog-card">
+      <article class="catalog-card" onclick="toggleCard(this)">
         <span class="catalog-card-pixel"></span>
         <h4>Estética</h4>
-        <p>Cosmética profesional, ceras, cremas, aceites y equipamiento especializado.</p>
+        <p class="card-desc">Cosmética profesional, ceras, cremas, aceites y equipamiento especializado.</p>
+
+        <!-- Lista 8 -->
+        <div class="card-dropdown">
+          <ul class="product-list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+          </ul>
+          <div class="card-image-container">
+            <img src="icons/Icon8.svg" alt="Material Fungible" class="dropdown-img">
+          </div>
+        </div>
       </article>
 
       <!-- Sección 9 -->
-      <article class="catalog-card">
+      <article class="catalog-card" onclick="toggleCard(this)">
         <span class="catalog-card-pixel"></span>
         <h4>Mobiliario e iluminación</h4>
-        <p>Dotación ergonómica, mesas de instrumental y lámparas médicas de exploración.</p>
+        <p class="card-desc">Dotación ergonómica, mesas de instrumental y lámparas médicas de exploración.</p>
+
+        <!-- Lista 9 -->
+        <div class="card-dropdown">
+          <ul class="product-list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+          </ul>
+          <div class="card-image-container">
+            <img src="icons/Icon8.svg" alt="Material Fungible" class="dropdown-img">
+          </div>
+        </div>
       </article>
 
       <!-- Sección 10 -->
-      <article class="catalog-card">
+      <article class="catalog-card" onclick="toggleCard(this)">
         <span class="catalog-card-pixel"></span>
         <h4>Órtesis</h4>
-        <p>Soportes anatómicos y dispositivos de estabilización ortopédica.</p>
+        <p class="card-desc">Soportes anatómicos y dispositivos de estabilización ortopédica.</p>
+
+        <!-- Lista 10 -->
+        <div class="card-dropdown">
+          <ul class="product-list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+          </ul>
+          <div class="card-image-container">
+            <img src="icons/Icon8.svg" alt="Material Fungible" class="dropdown-img">
+          </div>
+        </div>
       </article>
 
       <!-- Sección 11 -->
-      <article class="catalog-card">
+      <article class="catalog-card" onclick="toggleCard(this)">
         <span class="catalog-card-pixel"></span>
         <h4>Movilidad y marcha</h4>
-        <p>Elementos de apoyo y autonomía para la recuperación funcional.</p>
+        <p class="card-desc">Elementos de apoyo y autonomía para la recuperación funcional.</p>
+
+        <!-- Lista 11 -->
+        <div class="card-dropdown">
+          <ul class="product-list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+          </ul>
+          <div class="card-image-container">
+            <img src="icons/Icon8.svg" alt="Material Fungible" class="dropdown-img">
+          </div>
+        </div>
       </article>
     </div>
   </div>
@@ -476,21 +696,23 @@
     }
 
     function animate() {
-      ctx.fillStyle = 'rgba(9, 13, 22, 0.4)';
+      const coverBgColor = getComputedStyle(document.body).getPropertyValue('--cover-bg').trim();
+      const color = getComputedStyle(document.body).getPropertyValue('--stroke-color').trim();
+      ctx.fillStyle = coverBgColor;
       ctx.fillRect(0, 0, width, height);
 
       step += 0.02;
 
-      drawWave(height * 0.10, 0.5, 'rgba(148, 163, 184, 0.20)', 10, 1.4);
-      drawWave(height * 0.20, 0.8, 'rgba(148, 163, 184, 0.20)', 14, 1.1);
-      drawWave(height * 0.30, 1.2, 'rgba(148, 163, 184, 0.20)', 18, 0.9);
-      drawWave(height * 0.40, 0.7, 'rgba(148, 163, 184, 0.20)', 12, 1.3);
-      drawWave(height * 0.50, 1.0, 'rgba(148, 163, 184, 0.20)', 15, 1.0);
-      drawWave(height * 0.60, 0.4, 'rgba(148, 163, 184, 0.20)', 8, 1.6);
-      drawWave(height * 0.70, 0.8, 'rgba(148, 163, 184, 0.20)', 14, 1.1);
-      drawWave(height * 0.80, 0.5, 'rgba(148, 163, 184, 0.20)', 10, 1.4);
-      drawWave(height * 0.90, 0.7, 'rgba(148, 163, 184, 0.20)', 12, 1.3);
-      drawWave(height * 1.00, 0.4, 'rgba(148, 163, 184, 0.20)', 8, 1.6);
+      drawWave(height * 0.10, 0.5, color, 10, 1.4);
+      drawWave(height * 0.20, 0.8, color, 14, 1.1);
+      drawWave(height * 0.30, 1.2, color, 18, 0.9);
+      drawWave(height * 0.40, 0.7, color, 12, 1.3);
+      drawWave(height * 0.50, 1.0, color, 15, 1.0);
+      drawWave(height * 0.60, 0.4, color, 8, 1.6);
+      drawWave(height * 0.70, 0.8, color, 14, 1.1);
+      drawWave(height * 0.80, 0.5, color, 10, 1.4);
+      drawWave(height * 0.90, 0.7, color, 12, 1.3);
+      drawWave(height * 1.00, 0.4, color, 8, 1.6);
 
       requestAnimationFrame(animate);
     }
@@ -537,6 +759,24 @@
     menuBtn.addEventListener('click', toggleDrawer);
     closeBtn.addEventListener('click', toggleDrawer);
     backdrop.addEventListener('click', toggleDrawer);
+
+    function toggleCard(selectedCard) {
+      const allCards = document.querySelectorAll('.catalog-card');
+      
+      // Si la tarjeta ya está abierta, la cerramos
+      const isOpen = selectedCard.classList.contains('active');
+      
+      // Cerramos todas las tarjetas del catálogo
+      allCards.forEach(card => {
+        card.classList.remove('active');
+      });
+
+      // Si no estaba abierta, la abrimos (efecto acordeón exclusivo)
+      if (!isOpen) {
+        selectedCard.classList.add('active');
+      }
+    }
+
   </script>
 </body>
 </html>

@@ -6,7 +6,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Valmed</title>
+  <title>VS Suministro médico</title>
   <style>
     * {
       box-sizing: border-box;
@@ -16,13 +16,13 @@
 
     :root {
       --bg-color: #166153;
-      --headBg-color: rgba(130, 130, 130, 0.2);
+      --headBg-color: rgba(144, 153, 146, 0.05);
       --text-menu: #ffffff;
       --text-muted: #ffffff;
       --card-bg: #363636;
-      --card-border: #1e293b;
+      --card-border: #212121;
       --cover-bg: #297d63;
-      --stroke-color: #9c9c9c;
+      --stroke-color: rgba(156, 156, 156, 0.4);
       --canvas-overlay: rgba(9, 13, 22, 0.4);
     }
 
@@ -38,14 +38,14 @@
     }
 
     body.light-mode {
-      --bg-color: #7c9c90;
-      --headBg-color: rgba(171, 171, 171, 0.2);
+      --bg-color: #84bab3;
+      --headBg-color: rgba(144, 153, 146, 0.05);
       --text-menu:#090d16;
       --text-muted: #303030;
       --card-bg: rgba(255, 255, 255, 0.9);
-      --card-border: #e2e8f0;
+      --card-border: #f2f2f2;
       --cover-bg: #73c7a0;
-      --stroke-color: #8f8f8f;
+      --stroke-color: rgba(143, 143, 143, 0.4);
       --canvas-overlay: rgba(248, 250, 252, 0.4);
     }
 
@@ -107,7 +107,7 @@
       align-items: center;
       margin-bottom: 2rem;
       padding-bottom: 1rem;
-      border-bottom: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--text-menu);
     }
 
     .drawer-header h3 {
@@ -172,7 +172,7 @@
       height: auto;
       object-fit: contain;
       margin-bottom: 0.25rem;
-      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
       transition: opacity 0.3s ease-in-out;
       will-change: opacity;
       transform: translateZ(0);
@@ -184,11 +184,11 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 480px; /* Ampliada la altura para cubrir la portada y la primera sección */
+      height: 580px; /* Ampliada la altura para cubrir la portada y la primera sección */
       z-index: 0;
       overflow: hidden;
-      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%);
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%);
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 100%);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 100%);
     }
 
     #hero-canvas {
@@ -247,6 +247,7 @@
     .hero-text-box h1 {
       font-size: 1.75rem;
       color: #f03e09;
+      text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
       font-weight: 700;
       letter-spacing: -0.5px;
       margin-top: -1.2rem;
@@ -278,10 +279,11 @@
     .section-card {
       background-color: var(--card-bg);
       backdrop-filter: blur(8px);
-      border: var(--card-border);
+      border: 1px solid var(--card-border);
       border-radius: 10px;
       padding: 1.25rem;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
     .section-card h3 {
@@ -322,6 +324,17 @@
       font-size: 0.8rem;
     }
 
+    .image-link {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.5rem;
+      border-radius: 12px;
+      border: 2px solid transparent;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+    }
+
     .gallery-item p {
       font-size: 0.9rem;
       text-align: center;
@@ -332,7 +345,7 @@
     .gallery-divider {
       border: none;
       height: 1px;
-      background-color: var(--card-border);
+      background-color: var(--text-menu);
       margin-top: 0.5rem;
     }
 
@@ -420,7 +433,9 @@
           <!-- Elemento 1 -->
           <div class="gallery-item">
             <div class="image-placeholder">
-              <img src="icons/Icon1.svg" alt="Icono de gestión" style="width: 130px; height: 130px; object-fit: contain;">
+              <a href="catalogo-mobile.html" class="image-link">
+                <img src="icons/Icon1.svg" alt="Icono de gestión" style="width: 130px; height: 130px; object-fit: contain;">
+              </a>
             </div>
             <p>Selección multimarca y disponibilidad constante.</p>
             <hr class="gallery-divider">
@@ -429,7 +444,9 @@
           <!-- Elemento 2 -->
           <div class="gallery-item">
             <div class="image-placeholder">
-              <img src="icons/Icon4.svg" alt="Icono de gestión" style="width: 130px; height: 130px; object-fit: contain;">
+              <a href="catalogo-mobile.html" class="image-link">
+                <img src="icons/Icon4.svg" alt="Icono de gestión" style="width: 130px; height: 130px; object-fit: contain;">
+              </a>
             </div>
             <p>Garantía y excelencia en el material sanitario.</p>
             <hr class="gallery-divider">
@@ -438,7 +455,9 @@
           <!-- Elemento 3 -->
           <div class="gallery-item">
             <div class="image-placeholder">
-              <img src="icons/Icon11.svg" alt="Icono de gestión" style="width: 130px; height: 130px; object-fit: contain;">
+              <a href="catalogo-mobile.html" class="image-link">
+                <img src="icons/Icon11.svg" alt="Icono de gestión" style="width: 130px; height: 130px; object-fit: contain;">
+              </a>
             </div>
             <p>Asesoramiento directo y relación de confianza.</p>
             <hr class="gallery-divider">
@@ -509,7 +528,6 @@
 
       step += 0.02;
 
-      // Distribución de hilos en escala de grises
       drawWave(height * 0.10, 0.5, color, 10, 1.4);
       drawWave(height * 0.20, 0.8, color, 14, 1.1);
       drawWave(height * 0.30, 1.2, color, 18, 0.9);
